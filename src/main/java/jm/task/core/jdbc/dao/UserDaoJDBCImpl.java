@@ -27,39 +27,6 @@ public class UserDaoJDBCImpl implements UserDao {
             e.printStackTrace();
         }
     }
-//******РАБОЧИЙ МЕТОД С ОТКЛ. АВТОКОММИТ(если нужно переделать все методы так, напишите, пожалуйста.)*****************
-//    @Override
-//    public void createUsersTable() {
-//        Connection connection = null;
-//        try {
-//            connection = Util.connectionSetup();
-//            try (PreparedStatement preparedStatement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS User " +
-//                    "(id BIGINT(19) NOT NULL AUTO_INCREMENT, name VARCHAR(15), lastName VARCHAR(15), " +
-//                    "age TINYINT(3), PRIMARY KEY (id));")) {
-//
-//                preparedStatement.executeUpdate();
-//                System.out.println("Таблица создана");
-//                connection.commit();
-//
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//                if (connection != null) {
-//                    connection.rollback();
-//                }
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                if (connection != null) {
-//                    connection.close();
-//                }
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-//******РАБОЧИЙ МЕТОД С ОТКЛ. АВТОКОММИТ(если нужно переделать все методы так, напишите, пожалуйста.)*****************
 
     @Override
     public void dropUsersTable() {
@@ -107,7 +74,7 @@ public class UserDaoJDBCImpl implements UserDao {
         List<User> userList = new ArrayList<>();
 
         try (Connection connection = Util.connectionSetup();
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM User")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM User;")) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -132,7 +99,7 @@ public class UserDaoJDBCImpl implements UserDao {
     @Override
     public void cleanUsersTable() {
         try (Connection connection = Util.connectionSetup();
-             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM User WHERE NOT id = 0")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM User WHERE NOT id = 0;")) {
 
             preparedStatement.executeUpdate();
             System.out.println("Очистка таблицы произведена");
